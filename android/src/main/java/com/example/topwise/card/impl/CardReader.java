@@ -102,10 +102,7 @@ public class CardReader implements ICardReader {
             return false;
         }
     }
-//    @Override
-//    public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime, onReadCardListener onReadCardListener) {
-//        AppLog.e(TAG, "startFindCard (InsertCard): isMag= " + isMag + " isIcc=" + isIcc + " isRf=" + isRf + " outtime=" + outtime);
-//    }
+
     @Override
     public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime,
                               onReadCardListener onReadCardListener) {

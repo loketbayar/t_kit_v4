@@ -10,8 +10,8 @@ import com.example.topwise.card.impl.CardReader;
  * 作者:wangweicheng
  */
 public interface ICardReader {
-    void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime,
-                       InsertCard.onReadCardListener onReadCardListener);
+//    void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime,
+//                       InsertCard.onReadCardListener onReadCardListener);
 
     /**
      *
@@ -21,6 +21,8 @@ public interface ICardReader {
      * @param outtime 单位秒/Unit second
      * @param onReadCardListener
      */
+
+
     void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime, CardReader.onReadCardListener onReadCardListener);
 
     /**
