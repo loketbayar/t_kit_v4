@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:topwise/model/balance_pending_information.dart';
 import 'package:topwise/topwise.dart';
 import 'package:topwise/topwise_method_channel.dart';
 
@@ -198,7 +199,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> printBalanceInformation(Map<String, dynamic> datamodel) async {
     try {
-      var data = await _topwisePlugin.printBalanceInformation(datamodel);
+      var data = await _topwisePlugin.printBalanceInformation(BalanceInformationModel());
       log('$data', name: 'printBalanceInformation');
     } catch (e) {
       log(e.toString());

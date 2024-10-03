@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:topwise/model/balance_pending_information.dart';
 
 import 'topwise_method_channel.dart';
 
@@ -72,9 +73,9 @@ abstract class TopwisePlatform extends PlatformInterface {
 
   Future<String?> printTickertape();
 
-  Future<String?> printBalanceInformation(Map<String, dynamic> data);
+  Future<String?> printBalanceInformation(BalanceInformationModel data);
 
-  Future<String?> printBalancePendingInformation(Map<String, dynamic> data);
+  Future<String?> printBalancePendingInformation(BalanceInformationModel data);
   // End Printer Feature
 
   // Shell CMD

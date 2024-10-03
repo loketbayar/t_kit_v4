@@ -1,3 +1,5 @@
+import 'package:topwise/model/balance_pending_information.dart';
+
 import 'topwise_platform_interface.dart';
 
 class Topwise {
@@ -73,11 +75,11 @@ class Topwise {
     return TopwisePlatform.instance.printTickertape();
   }
 
-  Future<String?> printBalanceInformation(Map<String, dynamic> data) {
+  Future<String?> printBalanceInformation(BalanceInformationModel data) {
     return TopwisePlatform.instance.printBalanceInformation(data);
   }
 
-  Future<String?> printBalancePendingInformation(Map<String, dynamic> data) {
+  Future<String?> printBalancePendingInformation(BalanceInformationModel data) {
     return TopwisePlatform.instance.printBalancePendingInformation(data);
   }
 

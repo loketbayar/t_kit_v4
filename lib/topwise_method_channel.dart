@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:topwise/model/balance_pending_information.dart';
 
 import 'topwise_platform_interface.dart';
 
@@ -118,13 +119,13 @@ class MethodChannelTopwise extends TopwisePlatform {
   }
 
   @override
-  Future<String?> printBalanceInformation(Map<String, dynamic> data) async {
+  Future<String?> printBalanceInformation(BalanceInformationModel data) async {
     return await methodChannel.invokeMethod<String>('printBalanceInformation', data);
   }
 
   @override
-  Future<String?> printBalancePendingInformation(Map<String, dynamic> data) async {
-    return await methodChannel.invokeMethod<String>('printBalancePendingInformation', data);
+  Future<String?> printBalancePendingInformation(BalanceInformationModel data) async {
+    return await methodChannel.invokeMethod<String>('printBalancePendingInformation', data.toJson());
   }
 
   // End Printer Feature

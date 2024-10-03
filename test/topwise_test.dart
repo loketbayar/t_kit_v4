@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:topwise/model/balance_pending_information.dart';
 import 'package:topwise/topwise.dart';
 import 'package:topwise/topwise_method_channel.dart';
 import 'package:topwise/topwise_platform_interface.dart';
@@ -74,7 +75,6 @@ class MockTopwisePlatform with MockPlatformInterfaceMixin implements TopwisePlat
     throw UnimplementedError();
   }
 
-
   @override
   Future<String?> startFindCard() {
     // TODO: implement isRFCardExists
@@ -118,13 +118,13 @@ class MockTopwisePlatform with MockPlatformInterfaceMixin implements TopwisePlat
   }
 
   @override
-  Future<String?> printBalanceInformation(Map<String, dynamic> data) {
+  Future<String?> printBalanceInformation(BalanceInformationModel data) {
     // TODO: implement printTickertape
     throw UnimplementedError();
   }
 
   @override
-  Future<String?> printBalancePendingInformation(Map<String, dynamic> data) {
+  Future<String?> printBalancePendingInformation(BalanceInformationModel data) {
     // TODO: implement printTickertape
     throw UnimplementedError();
   }
