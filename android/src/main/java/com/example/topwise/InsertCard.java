@@ -64,7 +64,7 @@ public class InsertCard implements ICardReader {
 
     private boolean openMag(){
         try {
-            return magCard.open();ƒ
+            return magCard.open();
         } catch (RemoteException e) {
             e.printStackTrace();
             Log.e(TAG,   "openMag: false ==============");
