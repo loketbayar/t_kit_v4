@@ -165,6 +165,8 @@ public class TopwisePlugin implements FlutterPlugin,
   //    THIS IS FOR INSERT CARD
 
     if (call.method.equals("startFindCard")) {
+      Log.d("FlutterPlugin", "startFindCard method called");
+
       boolean isMag = call.argument("isMag");
       boolean isIcc = call.argument("isIcc");
       boolean isRf = call.argument("isRf");
@@ -181,9 +183,14 @@ public class TopwisePlugin implements FlutterPlugin,
           cardResult.put("track2", cardData.getTrack2());
           cardResult.put("track3", cardData.getTrack3());
 
+          Log.d("FlutterPlugin", "Card Result: " + cardResult.toString());
+
           channel.invokeMethod("startFindCard", cardResult);
         }
       });
+
+      Log.d("FlutterPlugin", "Card finding process started successfully");
+
 
       result.success(null);
       return;
