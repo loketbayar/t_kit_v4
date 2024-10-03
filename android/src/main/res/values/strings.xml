@@ -668,7 +668,8 @@
 	<string name="print_accountnumber">Nomor Rekening</string>
 	<string name="print_noreff">Nomor Reff</string>
 	<string name="print_balance">Saldo</string>
-	<string name="print_balancecheck_success">* Biaya Admin Bank Mengikuti Kebijakan Bank Penerbit</string>
+	<string name="print_balancecheck_success">* Biaya Admin Bank Mengikuti</string>
+	<string name="print_balancecheck_success2">Kebijakan Bank Penerbit</string>
 
 
 	<string name="print_cardno">CARD NUMBER:</string>
