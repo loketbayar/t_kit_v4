@@ -11,6 +11,7 @@ import android.print.PrinterInfo;
 import android.util.Log;
 import android.util.Printer;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -26,6 +27,8 @@ import com.topwise.cloudpos.aidl.printer.TextUnit;
 import com.topwise.cloudpos.aidl.rfcard.AidlRFCard;
 import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.data.PrinterConstant;
+
+import com.example.topwise.card.entity.CardData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
