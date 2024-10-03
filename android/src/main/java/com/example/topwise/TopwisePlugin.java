@@ -32,8 +32,8 @@ import com.topwise.cloudpos.data.PrinterConstant;
 import com.example.topwise.card.entity.CardData;
 import com.example.topwise.InsertCard;
 import com.example.topwise.card.api.ICardReader;
-import com.example.topwise.TopUpsdkManage;
-import com.example.topwise.card.entity.CardReader;
+import com.example.topwise.TopUsdkManage;
+import com.example.topwise.card.impl.CardReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -182,7 +182,7 @@ public class TopwisePlugin implements FlutterPlugin,
       boolean isRf = false;
       int timeout = 60 * 1000;
 
-      TopUpsdkManage usdkManage = TopUpsdkManage.getInstance();
+      TopUsdkManage usdkManage = TopUsdkManage.getInstance();
       ICardReader iCardReader = usdkManage.getCardReader();
 
       iCardReader.getCardReader().startFindCard(isMag, isIcc, isRf, timeout, new CardReader.onReadCardListener() {
