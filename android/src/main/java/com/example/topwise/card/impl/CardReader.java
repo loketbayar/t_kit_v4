@@ -12,6 +12,15 @@ import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
 import com.topwise.cloudpos.aidl.rfcard.AidlRFCard;
 import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.aidl.shellmonitor.InstructionSendDataCallback;
+import com.topwise.cloudpos.struct.BytesUtil;
+
+
+import com.example.topwise.card.api.ICardReader;
+import com.example.topwise.card.entity.CardData;
+import com.example.topwise.utlis.CardTimer;
+import com.example.topwise.AppLog;
+import com.example.topwise.TopUsdkManage;
+
 
 import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.card.entity.CardData;
