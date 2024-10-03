@@ -182,10 +182,9 @@ public class TopwisePlugin implements FlutterPlugin,
       boolean isRf = false;
       int timeout = 60 * 1000;
 
-      TopUsdkManage usdkManage = TopUsdkManage.getInstance();
-      ICardReader iCardReader = usdkManage.getCardReader();
+      ICardReader iCardReader = TopUsdkManage.getInstance().getCardReader();
 
-      iCardReader.getCardReader().startFindCard(isMag, isIcc, isRf, timeout, new CardReader.onReadCardListener() {
+      iCardReader.startFindCard(isMag, isIcc, isRf, timeout, new CardReader.onReadCardListener() {
         @Override
         public void getReadState(CardData cardData) {
           Log.d("FlutterPlugin", "Card data received");
