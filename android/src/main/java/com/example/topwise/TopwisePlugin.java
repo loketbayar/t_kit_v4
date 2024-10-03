@@ -174,80 +174,80 @@ public class TopwisePlugin implements FlutterPlugin,
       IC Card
      */
 
-    if (call.method.equals("openICCard")){
-      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//    if (call.method.equals("openICCard")){
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//
+//      new ICCardActivity(icCard).open(new ICCardActivity.ICCardCallback() {
+//        @Override
+//        public void onEventFinish(String value) {
+//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
+//                  .invokeMethod(universaDartChannellCallback, value);
+//        }
+//      });
+//
+//      result.success(null);
+//      return;
+//    }
+//
+//    if (call.method.equals("cardReset")){
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//
+//      new ICCardActivity(icCard).cardReset(new ICCardActivity.ICCardCallback() {
+//        @Override
+//        public void onEventFinish(String value) {
+//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
+//                  .invokeMethod(universaDartChannellCallback, value);
+//        }
+//      });
+//
+//      result.success(null);
+//      return;
+//    }
 
-      new ICCardActivity(icCard).open(new ICCardActivity.ICCardCallback() {
-        @Override
-        public void onEventFinish(String value) {
-          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-                  .invokeMethod(universaDartChannellCallback, value);
-        }
-      });
+//    if (call.method.equals("apduComm")){
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//
+//      new ICCardActivity(icCard).apduComm(new ICCardActivity.ICCardCallback() {
+//        @Override
+//        public void onEventFinish(String value) {
+//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
+//                  .invokeMethod(universaDartChannellCallback, value);
+//        }
+//      });
+//
+//      result.success(null);
+//      return;
+//    }
 
-      result.success(null);
-      return;
-    }
+//    if (call.method.equals("closeICCard")){
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//
+//      new ICCardActivity(icCard).close(new ICCardActivity.ICCardCallback() {
+//        @Override
+//        public void onEventFinish(String value) {
+//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
+//                  .invokeMethod(universaDartChannellCallback, value);
+//        }
+//      });
+//
+//      result.success(null);
+//      return;
+//    }
 
-    if (call.method.equals("cardReset")){
-      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-
-      new ICCardActivity(icCard).cardReset(new ICCardActivity.ICCardCallback() {
-        @Override
-        public void onEventFinish(String value) {
-          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-                  .invokeMethod(universaDartChannellCallback, value);
-        }
-      });
-
-      result.success(null);
-      return;
-    }
-
-    if (call.method.equals("apduComm")){
-      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-
-      new ICCardActivity(icCard).apduComm(new ICCardActivity.ICCardCallback() {
-        @Override
-        public void onEventFinish(String value) {
-          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-                  .invokeMethod(universaDartChannellCallback, value);
-        }
-      });
-
-      result.success(null);
-      return;
-    }
-
-    if (call.method.equals("closeICCard")){
-      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-
-      new ICCardActivity(icCard).close(new ICCardActivity.ICCardCallback() {
-        @Override
-        public void onEventFinish(String value) {
-          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-                  .invokeMethod(universaDartChannellCallback, value);
-        }
-      });
-
-      result.success(null);
-      return;
-    }
-
-    if (call.method.equals("isICCardExist")){
-      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-
-      new ICCardActivity(icCard).isExists(new ICCardActivity.ICCardCallback() {
-        @Override
-        public void onEventFinish(String value) {
-          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-                  .invokeMethod(universaDartChannellCallback, value);
-        }
-      });
-
-      result.success(null);
-      return;
-    }
+//    if (call.method.equals("isICCardExist")){
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//
+//      new ICCardActivity(icCard).isExists(new ICCardActivity.ICCardCallback() {
+//        @Override
+//        public void onEventFinish(String value) {
+//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
+//                  .invokeMethod(universaDartChannellCallback, value);
+//        }
+//      });
+//
+//      result.success(null);
+//      return;
+//    }
 
     /*
       End IC Card
@@ -540,23 +540,23 @@ public class TopwisePlugin implements FlutterPlugin,
     }
   }
 
-  public void testPrint(AidlPrinter aidlPrinter){
-    if(aidlPrinter!=null) {
-      try {
-        List<PrintItemObj> data = new ArrayList<PrintItemObj>();
-        PrintItemObj printItemObj1 = new PrintItemObj("Test Print 1");
-        PrintItemObj printItemObj2 = new PrintItemObj("Test Print 1");
-
-//        Log.i("PrinterState:" + aidlPrinter.getPrinterState());
-        data.add(printItemObj1);
-        data.add(printItemObj2);
-        aidlPrinter.printText(data, printListener);
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-  };
+//  public void testPrint(AidlPrinter aidlPrinter){
+//    if(aidlPrinter!=null) {
+//      try {
+//        List<PrintItemObj> data = new ArrayList<PrintItemObj>();
+//        PrintItemObj printItemObj1 = new PrintItemObj("Test Print 1");
+//        PrintItemObj printItemObj2 = new PrintItemObj("Test Print 1");
+//
+////        Log.i("PrinterState:" + aidlPrinter.getPrinterState());
+//        data.add(printItemObj1);
+//        data.add(printItemObj2);
+//        aidlPrinter.printText(data, printListener);
+//      } catch (RemoteException e) {
+//        e.printStackTrace();
+//      } catch (Exception e) {
+//        e.printStackTrace();
+//      }
+//    }
+//  };
 
 }
