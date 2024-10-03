@@ -45,7 +45,7 @@ import java.lang.Exception;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.plugin.common.MethodCalfl;
+import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -190,12 +190,10 @@ public class TopwisePlugin implements FlutterPlugin,
         public void getReadState(CardData cardData) {
           Log.d("FlutterPlugin", "Card data received");
 
-          // Close the card reader regardless of the card data status
           iCardReader.close(false);
 
           try {
-            // Assuming you want to check the card type here
-            if (cardData.geteCardType() == CardData.geteCardType.OK) {
+            if (CardData.EReturnType.OK == cardData.geteReturnType()) {
               Map<String, Object> cardResult = new HashMap<>();
               cardResult.put("returnType", cardData.geteReturnType().toString());
               cardResult.put("cardType", cardData.geteCardType().toString());
