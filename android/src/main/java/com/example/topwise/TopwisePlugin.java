@@ -29,6 +29,7 @@ import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.data.PrinterConstant;
 
 import com.example.topwise.card.entity.CardData;
+import com.example.topwise.InsertCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,24 +174,32 @@ public class TopwisePlugin implements FlutterPlugin,
       boolean isMag = true;
       boolean isIcc = true;
       boolean isRf = false;
-
       int timeout = 60 * 1000;
 
       InsertCard.getInstance().startFindCard(isMag, isIcc, isRf, timeout, new InsertCard.onReadCardListener() {
         @Override
-        public void getReadState(CardData cardData) {
+        public void onCardRead(CardData cardData) {
           Log.d("FlutterPlugin", "Card data received");
 
-          Map<String, Object> cardResult = new HashMap<>();
-          cardResult.put("returnType", cardData.geteReturnType().toString());
-          cardResult.put("cardType", cardData.geteCardType().toString());
-          cardResult.put("track1", cardData.getTrack1());
-          cardResult.put("track2", cardData.getTrack2());
-          cardResult.put("track3", cardData.getTrack3());
+          try {
+            if (cardData != null) {
+              Map<String, Object> cardResult = new HashMap<>();
+              cardResult.put("returnType", cardData.geteReturnType().toString());
+              cardResult.put("cardType", cardData.geteCardType().toString());
+              cardResult.put("track1", cardData.getTrack1());
+              cardResult.put("track2", cardData.getTrack2());
+              cardResult.put("track3", cardData.getTrack3());
 
-          Log.d("FlutterPlugin", "Card Result: " + cardResult.toString());
+              Log.d("FlutterPlugin", "Card Result: " + cardResult.toString());
 
-          channel.invokeMethod("startFindCard", cardResult);
+              channel.invokeMethod("onCardRead", cardResult);
+            } else {
+              throw new NullPointerException("Data kartu kosong atau tidak valid.");
+            }
+          } catch (NullPointerException e) {
+            Log.e("FlutterPlugin", "Kesalahan: Data kartu tidak valid. " + e.getMessage());
+            channel.invokeMethod("onCardError", e.getMessage());
+          }
         }
       });
 
