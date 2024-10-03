@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
-import com.eaxample.topwise.CardData;
+import com.example.topwise.card.entity.CardData;
 
 
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
