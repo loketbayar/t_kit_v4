@@ -177,7 +177,7 @@ public class TopwisePlugin implements FlutterPlugin,
     if (call.method.equals("startFindCard")) {
       Log.d("FlutterPlugin", "startFindCard method called");
 
-      boolean isMag = false;
+      boolean isMag = true;
       boolean isIcc = true;
       boolean isRf = false;
       int timeout = 60 * 1000;

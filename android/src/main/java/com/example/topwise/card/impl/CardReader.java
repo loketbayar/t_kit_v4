@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.topwise.AppLog;
 //import com.example.topwise.InsertCard;
+import com.example.topwise.DeviceServiceManager;
 import com.example.topwise.TopUsdkManage;
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
 import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
@@ -55,10 +56,18 @@ public class CardReader implements ICardReader {
     private byte mResultCode;
     private byte[] mResultData;
     private boolean bCloseAll;
-    private AidlMagCard magCard = TopUsdkManage.getInstance().getMag();
-    private AidlICCard icCard = TopUsdkManage.getInstance().getIcc();
-    private AidlRFCard rfCard = TopUsdkManage.getInstance().getRf();
-    private AidlShellMonitor aidlShellMonitor = TopUsdkManage.getInstance().getShellMonitor();
+//    private AidlMagCard magCard = TopUsdkManage.getInstance().getMag();
+
+    private AidlMagCard magCard = DeviceServiceManager.getInstance().getMagCardReader();
+//    private AidlICCard icCard = TopUsdkManage.getInstance().getIcc();
+
+    private AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//    private AidlRFCard rfCard = TopUsdkManage.getInstance().getRf();
+
+    private AidlRFCard rfCard = DeviceServiceManager.getInstance().getRfCardReader();
+//    private AidlShellMonitor aidlShellMonitor = TopUsdkManage.getInstance().getShellMonitor();
+
+    private AidlShellMonitor aidlShellMonitor = DeviceServiceManager.getInstance().getShellMonitor();
 
     private CardReader() {
     }
@@ -149,7 +158,7 @@ public class CardReader implements ICardReader {
             if (isMag && !openMag()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_MAG_ERR));
-                    Log.e("ERROR", "IC CARD SUDAH OPEN");
+//                    Log.e("ERROR", "IC CARD SUDAH OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }
@@ -157,7 +166,7 @@ public class CardReader implements ICardReader {
             if (isIcc && !openIc()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_IC_ERR));
-                    Log.e("ERROR", "IC CARD BELUM OPEN");
+//                    Log.e("ERROR", "IC CARD BELUM OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }

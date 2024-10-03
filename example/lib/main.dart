@@ -199,7 +199,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> printBalanceInformation(Map<String, dynamic> datamodel) async {
     try {
-      var data = await _topwisePlugin.printBalanceInformation(BalanceInformationModel());
+      var data = await _topwisePlugin.printBalanceInformation({});
       log('$data', name: 'printBalanceInformation');
     } catch (e) {
       log(e.toString());
