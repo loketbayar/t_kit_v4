@@ -560,18 +560,12 @@ public class PrintDevActivity extends  BaseUtils {
             template.add(new ImageUnit(Align.CENTER,bitmap,bitmap.getWidth(),bitmap.getHeight()));
 
             template.add(new TextUnit("\n"));
-//            <string name="print_bankname">Nama Bank</string>
-//            <string name="print_cardnumber">Nomor Kartu</string>
-//            <string name="print_accountnumber">Nomor Rekening</string>
-//            <string name="print_noreff">Nomor Reff</string>
-//            <string name="print_balance">Saldo</string>
-//            <string name="print_balancecheck_success">* Biaya Admin Bank Mengikuti Kebijakan Bank Penerbit</string>
 
             template.add(new TextUnit(merchantName,20,Align.CENTER).setBold(false));
 
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(getResString(merchantAdress,context),TextSize.LARGE,Align.CENTER).setBold(true));
+            template.add(new TextUnit(merchantAdress,TextSize.LARGE,Align.CENTER).setBold(true));
 
             template.add(new TextUnit("\n"));
 
@@ -583,11 +577,11 @@ public class PrintDevActivity extends  BaseUtils {
 
             template.add(new TextUnit(getResString(R.string.print_bankname,context) + "\t" + bankName,TextSize.NORMAL,Align.LEFT).setBold(false));
             template.add(new TextUnit(getResString(R.string.print_cardnumber,context) + "\t" + cardNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.accountNumber,context) + "\t" + accountNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_noref,context) + "\t" + noReff,getResString(R.string.consume,context),TextSize.NORMAL-2,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_accountnumber,context) + "\t" + accountNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_noreff,context) + "\t" + noReff,TextSize.NORMAL-2,Align.LEFT).setBold(false));
             template.add(new TextUnit(getResString(R.string.print_balance,context) + "\t" + balance,TextSize.NORMAL,Align.LEFT).setBold(false));
 
-            template.add(new TextUnit(getResString(R.string.print_balancecheck_success,context),TextSize.NORMAL,Align.CEMTER).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_balancecheck_success,context),TextSize.NORMAL,Align.CENTER).setBold(false));
             template.add(new TextUnit("-----------------------------------------------",TextSize.NORMAL-2,Align.CENTER).setBold(false));
             template.add(new TextUnit(getResString(R.string.print_agentcopy,context),TextSize.NORMAL,Align.CENTER).setBold(false));
             printAddLineFree(template);
