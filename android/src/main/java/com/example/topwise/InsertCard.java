@@ -6,7 +6,9 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.example.topwise.card.api.ICardReader;
+import com.example.topwise.card.entity.CardData;
 import com.example.topwise.card.impl.CardReader;
+import com.example.topwise.utlis.CardTimer;
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
 import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
 import com.topwise.cloudpos.aidl.rfcard.AidlRFCard;
