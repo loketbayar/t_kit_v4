@@ -178,10 +178,12 @@ public class TopwisePlugin implements FlutterPlugin,
       InsertCard.getInstance().startFindCard(isMag, isIcc, isRf, timeout, new InsertCard.onReadCardListener() {
         @Override
         public void getReadState(CardData cardData) {
+          // Log received card data
+          Log.d("FlutterPlugin", "Card data received");
 
           Map<String, Object> cardResult = new HashMap<>();
-          cardResult.put("returnType", cardData.getReturnType().toString());
-          cardResult.put("cardType", cardData.getCardType().toString());
+          cardResult.put("returnType", cardData.geteReturnType().toString());
+          cardResult.put("cardType", cardData.geteCardType().toString());
           cardResult.put("track1", cardData.getTrack1());
           cardResult.put("track2", cardData.getTrack2());
           cardResult.put("track3", cardData.getTrack3());
@@ -194,10 +196,10 @@ public class TopwisePlugin implements FlutterPlugin,
 
       Log.d("FlutterPlugin", "Card finding process started successfully");
 
-
       result.success(null);
       return;
     }
+
 
     if (call.method.equals("openRFCard")){
       AidlRFCard rfcard = DeviceServiceManager.getInstance().getRfCardReader();
