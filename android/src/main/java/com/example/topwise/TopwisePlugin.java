@@ -429,7 +429,7 @@ public class TopwisePlugin implements FlutterPlugin,
 //       val decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
 //       val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size);
 
-      testPrint(aidlPrinter);
+//      testPrint(aidlPrinter);
 
        // Second choice if testPrint() is not working
        // see https://github.com/devmedtz/flutter_topwise/blob/main/android/src/main/kotlin/com/ubx/flutter_topwise/MethodCallHandlerImpl.kt#L48
