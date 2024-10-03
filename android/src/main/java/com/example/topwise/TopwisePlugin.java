@@ -189,7 +189,7 @@ public class TopwisePlugin implements FlutterPlugin,
         public void getReadState(CardData cardData) {
           Log.d("FlutterPlugin", "Card data received");
 
-          iCardReader.close(false);
+//          iCardReader.close(false);
 
           try {
             if (CardData.EReturnType.OK == cardData.geteReturnType()) {

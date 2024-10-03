@@ -93,7 +93,7 @@ public class CardReader implements ICardReader {
         }
     }
     @Override
-    public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime, InsertCard.onReadCardListener onReadCardListener) {
+    public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime, onReadCardListener onReadCardListener) {
         AppLog.e(TAG, "startFindCard (InsertCard): isMag= " + isMag + " isIcc=" + isIcc + " isRf=" + isRf + " outtime=" + outtime);
     }
     @Override
@@ -142,6 +142,7 @@ public class CardReader implements ICardReader {
             if (isMag && !openMag()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_MAG_ERR));
+                    Log.e("ERROR", "IC CARD SUDAH OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }
@@ -149,6 +150,7 @@ public class CardReader implements ICardReader {
             if (isIcc && !openIc()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_IC_ERR));
+                    Log.e("ERROR", "IC CARD BELUM OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }
