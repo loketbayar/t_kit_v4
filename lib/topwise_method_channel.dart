@@ -120,7 +120,7 @@ class MethodChannelTopwise extends TopwisePlatform {
 
   @override
   Future<String?> printBalanceInformation(BalanceInformationModel data) async {
-    return await methodChannel.invokeMethod<String>('printBalanceInformation', data);
+    return await methodChannel.invokeMethod<String>('printBalanceInformation', data.toJson());
   }
 
   @override
