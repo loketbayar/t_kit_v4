@@ -79,6 +79,8 @@ abstract class TopwisePlatform extends PlatformInterface {
 
   // Shell CMD
   Future<String?> getHardwareSN();
+
+  Future<String?> startFindCard();
   // End Shell CMD
 
   //universal

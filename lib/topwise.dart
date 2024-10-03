@@ -89,5 +89,9 @@ class Topwise {
     return TopwisePlatform.instance.getHardwareSN();
   }
 
+  Future<String?> startFindCard() {
+    return TopwisePlatform.instance.startFindCard();
+  }
+
   void universalCallback(Function callback) => TopwisePlatform.instance.universalCallback(callback);
 }

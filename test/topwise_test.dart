@@ -74,6 +74,13 @@ class MockTopwisePlatform with MockPlatformInterfaceMixin implements TopwisePlat
     throw UnimplementedError();
   }
 
+
+  @override
+  Future<String?> startFindCard() {
+    // TODO: implement isRFCardExists
+    throw UnimplementedError();
+  }
+
   @override
   Future<String?> openRFCard() {
     // TODO: implement openRFCard

@@ -130,11 +130,16 @@ class MethodChannelTopwise extends TopwisePlatform {
   // End Printer Feature
 
   // Shell CMD
+  // End Shell CMD
   @override
   Future<String?> getHardwareSN() async {
     return await methodChannel.invokeMethod<String>('getHardwareSN');
   }
-  // End Shell CMD
+
+  @override
+  Future<String?> startFindCard() async {
+    return await methodChannel.invokeMethod<String>('startFindCard');
+  }
 
   /// Because Single Instance Method Channel Only
   /// enable for handling single "setMethodCallHandler",

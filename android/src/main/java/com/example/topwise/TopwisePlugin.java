@@ -42,17 +42,12 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 
 
-
-/** TopwisePlugin */
 public class TopwisePlugin implements FlutterPlugin,
         MethodCallHandler,
         PluginRegistry.RequestPermissionsResultListener,
         PluginRegistry.ActivityResultListener,
         ActivityAware {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
+
   static String dartChannel = "topwise";
   static String universaDartChannellCallback = "universalCallback";
 
@@ -166,96 +161,33 @@ public class TopwisePlugin implements FlutterPlugin,
       return;
     }
 
-    /*
-      End Magnetic Stripe Swipe
-     */
 
-    /*
-      IC Card
-     */
+  //    THIS IS FOR INSERT CARD
 
-//    if (call.method.equals("openICCard")){
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//
-//      new ICCardActivity(icCard).open(new ICCardActivity.ICCardCallback() {
-//        @Override
-//        public void onEventFinish(String value) {
-//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-//                  .invokeMethod(universaDartChannellCallback, value);
-//        }
-//      });
-//
-//      result.success(null);
-//      return;
-//    }
-//
-//    if (call.method.equals("cardReset")){
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//
-//      new ICCardActivity(icCard).cardReset(new ICCardActivity.ICCardCallback() {
-//        @Override
-//        public void onEventFinish(String value) {
-//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-//                  .invokeMethod(universaDartChannellCallback, value);
-//        }
-//      });
-//
-//      result.success(null);
-//      return;
-//    }
+    if (call.method.equals("startFindCard")) {
+      boolean isMag = call.argument("isMag");
+      boolean isIcc = call.argument("isIcc");
+      boolean isRf = call.argument("isRf");
+      int timeout = call.argument("timeout");
 
-//    if (call.method.equals("apduComm")){
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//
-//      new ICCardActivity(icCard).apduComm(new ICCardActivity.ICCardCallback() {
-//        @Override
-//        public void onEventFinish(String value) {
-//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-//                  .invokeMethod(universaDartChannellCallback, value);
-//        }
-//      });
-//
-//      result.success(null);
-//      return;
-//    }
+      InsertCard.getInstance().startFindCard(isMag, isIcc, isRf, timeout, new InsertCard.onReadCardListener() {
+        @Override
+        public void getReadState(CardData cardData) {
 
-//    if (call.method.equals("closeICCard")){
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//
-//      new ICCardActivity(icCard).close(new ICCardActivity.ICCardCallback() {
-//        @Override
-//        public void onEventFinish(String value) {
-//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-//                  .invokeMethod(universaDartChannellCallback, value);
-//        }
-//      });
-//
-//      result.success(null);
-//      return;
-//    }
+          Map<String, Object> cardResult = new HashMap<>();
+          cardResult.put("returnType", cardData.getReturnType().toString());
+          cardResult.put("cardType", cardData.getCardType().toString());
+          cardResult.put("track1", cardData.getTrack1());
+          cardResult.put("track2", cardData.getTrack2());
+          cardResult.put("track3", cardData.getTrack3());
 
-//    if (call.method.equals("isICCardExist")){
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//
-//      new ICCardActivity(icCard).isExists(new ICCardActivity.ICCardCallback() {
-//        @Override
-//        public void onEventFinish(String value) {
-//          new MethodChannel(pluginBinding.getBinaryMessenger(), dartChannel)
-//                  .invokeMethod(universaDartChannellCallback, value);
-//        }
-//      });
-//
-//      result.success(null);
-//      return;
-//    }
+          channel.invokeMethod("startFindCard", cardResult);
+        }
+      });
 
-    /*
-      End IC Card
-     */
-
-    /*
-      RF Card
-     */
+      result.success(null);
+      return;
+    }
 
     if (call.method.equals("openRFCard")){
       AidlRFCard rfcard = DeviceServiceManager.getInstance().getRfCardReader();
@@ -425,20 +357,6 @@ public class TopwisePlugin implements FlutterPlugin,
       Map<String, Object> arguments = call.arguments();
       AidlPrinter aidlPrinter = DeviceServiceManager.getInstance().getPrintManager();
 
-//       Map<String, Object> base64String = call.argument<String>("base64image");
-//       val decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
-//       val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size);
-
-//      testPrint(aidlPrinter);
-
-       // Second choice if testPrint() is not working
-       // see https://github.com/devmedtz/flutter_topwise/blob/main/android/src/main/kotlin/com/ubx/flutter_topwise/MethodCallHandlerImpl.kt#L48
-       // https://github.com/devmedtz/flutter_topwise/blob/main/android/src/main/kotlin/com/ubx/flutter_topwise/MethodCallHandlerImpl.kt#L430
-//       PrintTemplate printTemplate = com.topwise.cloudpos.aidl.printer.PrintTemplate();
-//       printTemplate.add(new TextUnit("Test", TextUnit.TextSize.NORMAL, Align.CENTER));
-
-//      aidlPrinter.addText(29, , PrinterConstant.FontSize.NORMAL, "Test");
-
       new PrintDevActivity(aidlPrinter, this.context).printBalancePendingInformation(new PrintDevActivity.PrintDevCallBack() {
         @Override
         public void onEventFinish(String value) {
@@ -539,24 +457,5 @@ public class TopwisePlugin implements FlutterPlugin,
         permissionTool.requestNecessaryPermissions(activity, deniedPermissions, REQUEST_CODE1);
     }
   }
-
-//  public void testPrint(AidlPrinter aidlPrinter){
-//    if(aidlPrinter!=null) {
-//      try {
-//        List<PrintItemObj> data = new ArrayList<PrintItemObj>();
-//        PrintItemObj printItemObj1 = new PrintItemObj("Test Print 1");
-//        PrintItemObj printItemObj2 = new PrintItemObj("Test Print 1");
-//
-////        Log.i("PrinterState:" + aidlPrinter.getPrinterState());
-//        data.add(printItemObj1);
-//        data.add(printItemObj2);
-//        aidlPrinter.printText(data, printListener);
-//      } catch (RemoteException e) {
-//        e.printStackTrace();
-//      } catch (Exception e) {
-//        e.printStackTrace();
-//      }
-//    }
-//  };
 
 }

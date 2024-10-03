@@ -67,8 +67,6 @@ public interface ITopUsdk {
     AidlSerialport getSerialport(int port);
     AidlPedestal getPedestal();
     AidlCPUCard getCpu();
-//    AidlPedestalSerialManager getPedestalSerialManager();
-    //add
     ICardReader getCardReader();
     IEmv getEmvHelper();
 
