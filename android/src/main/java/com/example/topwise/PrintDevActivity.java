@@ -569,9 +569,9 @@ public class PrintDevActivity extends  BaseUtils {
 
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(getResString(R.string.print_tid + "\t" + tid,context),TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_mid + "\t" + mid,context)+"00000000000",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_datetime + "\t" + timestamp,context)+"01",TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("TID" + "\t" + tid,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("MID" + "\t" + mid,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("Tanggal" + "\t" + timestamp,TextSize.NORMAL,Align.LEFT).setBold(false));
 
             template.add(new TextUnit("\n"));
 
