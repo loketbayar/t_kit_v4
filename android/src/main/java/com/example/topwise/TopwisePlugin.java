@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.Printer;
 
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -30,16 +31,21 @@ import com.topwise.cloudpos.data.PrinterConstant;
 
 import com.example.topwise.card.entity.CardData;
 import com.example.topwise.InsertCard;
+import com.example.topwise.card.api.ICardReader;
+import com.example.topwise.TopUpsdkManage;
+import com.example.topwise.card.entity.CardReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.Exception;
+
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodCalfl;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -176,13 +182,20 @@ public class TopwisePlugin implements FlutterPlugin,
       boolean isRf = false;
       int timeout = 60 * 1000;
 
-      InsertCard.getInstance().startFindCard(isMag, isIcc, isRf, timeout, new InsertCard.onReadCardListener() {
+      TopUpsdkManage usdkManage = TopUpsdkManage.getInstance();
+      ICardReader iCardReader = usdkManage.getCardReader();
+
+      iCardReader.getCardReader().startFindCard(isMag, isIcc, isRf, timeout, new CardReader.onReadCardListener() {
         @Override
-        public void onCardRead(CardData cardData) {
+        public void getReadState(CardData cardData) {
           Log.d("FlutterPlugin", "Card data received");
 
+          // Close the card reader regardless of the card data status
+          iCardReader.close(false);
+
           try {
-            if (cardData != null) {
+            // Assuming you want to check the card type here
+            if (cardData.geteCardType() == CardData.geteCardType.OK) {
               Map<String, Object> cardResult = new HashMap<>();
               cardResult.put("returnType", cardData.geteReturnType().toString());
               cardResult.put("cardType", cardData.geteCardType().toString());
@@ -191,7 +204,6 @@ public class TopwisePlugin implements FlutterPlugin,
               cardResult.put("track3", cardData.getTrack3());
 
               Log.d("FlutterPlugin", "Card Result: " + cardResult.toString());
-
               channel.invokeMethod("onCardRead", cardResult);
             } else {
               throw new NullPointerException("Data kartu kosong atau tidak valid.");
@@ -199,12 +211,14 @@ public class TopwisePlugin implements FlutterPlugin,
           } catch (NullPointerException e) {
             Log.e("FlutterPlugin", "Kesalahan: Data kartu tidak valid. " + e.getMessage());
             channel.invokeMethod("onCardError", e.getMessage());
+          } catch (Exception e) {
+            Log.e("FlutterPlugin", "Unexpected error: " + e.getMessage());
+            channel.invokeMethod("onCardError", "Unexpected error occurred.");
           }
         }
       });
 
       Log.d("FlutterPlugin", "Card finding process started successfully");
-
       result.success(null);
       return;
     }
