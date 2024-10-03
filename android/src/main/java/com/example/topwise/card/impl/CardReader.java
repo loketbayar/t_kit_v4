@@ -6,7 +6,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.example.topwise.AppLog;
-import com.example.topwise.InsertCard;
+//import com.example.topwise.InsertCard;
 import com.example.topwise.TopUsdkManage;
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
 import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
