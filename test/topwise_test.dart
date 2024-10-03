@@ -118,13 +118,13 @@ class MockTopwisePlatform with MockPlatformInterfaceMixin implements TopwisePlat
   }
 
   @override
-  Future<String?> printBalanceInformation(BalanceInformationModel data) {
+  Future<String?> printBalanceInformation(Map<String, dynamic> data) {
     // TODO: implement printTickertape
     throw UnimplementedError();
   }
 
   @override
-  Future<String?> printBalancePendingInformation(BalanceInformationModel data) {
+  Future<String?> printBalancePendingInformation(Map<String, dynamic> data) {
     // TODO: implement printTickertape
     throw UnimplementedError();
   }

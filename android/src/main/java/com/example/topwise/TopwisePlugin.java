@@ -390,9 +390,9 @@ public class TopwisePlugin implements FlutterPlugin,
       return;
     }
 
-     if (call.method.equals("printBalancePendingInformation")){
+    if (call.method.equals("printBalancePendingInformation")){
       Map<String, Object> arguments = call.arguments();
-      AidlPrinter aidlPrinter = DeviceServiceManager.getInstance().getPrintManager();
+      AidlPrinter aidlPrinter =DeviceServiceManager.getInstance().getPrintManager();
 
       new PrintDevActivity(aidlPrinter, this.context).printBalancePendingInformation(new PrintDevActivity.PrintDevCallBack() {
         @Override
