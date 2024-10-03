@@ -30,7 +30,7 @@ import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.data.PrinterConstant;
 
 import com.example.topwise.card.entity.CardData;
-import com.example.topwise.InsertCard;
+//import com.example.topwise.InsertCard;
 import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.TopUsdkManage;
 import com.example.topwise.card.impl.CardReader;

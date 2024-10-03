@@ -6,7 +6,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.example.topwise.AppLog;
-import com.example.topwise.InsertCard;
+//import com.example.topwise.InsertCard;
 import com.example.topwise.TopUsdkManage;
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
 import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
@@ -102,10 +102,7 @@ public class CardReader implements ICardReader {
             return false;
         }
     }
-//    @Override
-//    public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime, onReadCardListener onReadCardListener) {
-//        AppLog.e(TAG, "startFindCard (InsertCard): isMag= " + isMag + " isIcc=" + isIcc + " isRf=" + isRf + " outtime=" + outtime);
-//    }
+
     @Override
     public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime,
                               onReadCardListener onReadCardListener) {
