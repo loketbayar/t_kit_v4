@@ -215,6 +215,15 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<String?> startFindCard() async {
+    try {
+      var data = await _topwisePlugin.startFindCard();
+      log('$data', name: 'startFindCard');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -310,6 +319,7 @@ class _MyAppState extends State<MyApp> {
                   await getHardwareSN();
                 },
                 child: const Text('get Hardware Serial Number')),
+            TextButton(onPressed: startFindCard, child: const Text('start Find Card')),
           ],
         ),
       ),

@@ -223,6 +223,7 @@ public class TopUsdkManage implements ITopUsdk{
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        Log.e("icCard?", "return icCardNull");
         return null;
     }
 

@@ -177,12 +177,16 @@ public class TopwisePlugin implements FlutterPlugin,
     if (call.method.equals("startFindCard")) {
       Log.d("FlutterPlugin", "startFindCard method called");
 
-      boolean isMag = true;
+      boolean isMag = false;
       boolean isIcc = true;
       boolean isRf = false;
       int timeout = 60 * 1000;
 
+//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
+//      Log.d("icCard? 1", "isCardNull : " + String.valueOf(icCard == null));
+
       ICardReader iCardReader = TopUsdkManage.getInstance().getCardReader();
+//      Log.d("icCard? 2", "icCardNull : " + String.valueOf(iCardReader == null));
 
       iCardReader.startFindCard(isMag, isIcc, isRf, timeout, new CardReader.onReadCardListener() {
         @Override
