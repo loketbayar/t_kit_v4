@@ -560,41 +560,36 @@ public class PrintDevActivity extends  BaseUtils {
             template.add(new ImageUnit(Align.CENTER,bitmap,bitmap.getWidth(),bitmap.getHeight()));
 
             template.add(new TextUnit("\n"));
+//            <string name="print_bankname">Nama Bank</string>
+//            <string name="print_cardnumber">Nomor Kartu</string>
+//            <string name="print_accountnumber">Nomor Rekening</string>
+//            <string name="print_noreff">Nomor Reff</string>
+//            <string name="print_balance">Saldo</string>
+//            <string name="print_balancecheck_success">* Biaya Admin Bank Mengikuti Kebijakan Bank Penerbit</string>
 
             template.add(new TextUnit(merchantName,20,Align.CENTER).setBold(false));
 
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(getResString(R.string.print_title_type_balance,context),TextSize.LARGE,Align.CENTER).setBold(true));
+            template.add(new TextUnit(getResString(merchantAdress,context),TextSize.LARGE,Align.CENTER).setBold(true));
 
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(getResString(R.string.print_merchantname,context),TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_merchantno,context)+"00000000000",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_operator,context)+"01",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_cardno,context)+"6214444******0095  1",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_issno,context)+"01021000",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_acqno,context)+"01031000",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_txntype,context)+getResString(R.string.consume,context),TextSize.NORMAL-2,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_expdate,context)+"20/12",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_batchno,context)+"000001",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_voucherno,context)+"000033",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_authno,context)+"000000",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_refno,context)+"1009000000033",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_datetime,context)+"2017/10/10 11:11:11",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_amount,context)+"  100.00",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_tips,context)+"  1.00",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_total,context)+"101.00",TextSize.NORMAL,Align.LEFT).setBold(false));
-            Bitmap bitmap1 =CodeUtil.createBarcode(orderNo,350,90);
-            template.add(new ImageUnit(bitmap1,bitmap1.getWidth(),bitmap1.getHeight()));
-            template.add(new TextUnit(getResString(R.string.print_reference,context)+"101.00",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit("AID:A000000333010101 TVR:008004600:",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit("ARQC:ABCDEFDGJHHHGA ATC:0020:",TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_signature,context),TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_acknowledge,context),TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit("-----------------------------------------------------------",TextSize.NORMAL-2,Align.CENTER).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_tid + "\t" + tid,context),TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_mid + "\t" + mid,context)+"00000000000",TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_datetime + "\t" + timestamp,context)+"01",TextSize.NORMAL,Align.LEFT).setBold(false));
+
+            template.add(new TextUnit("\n"));
+
+            template.add(new TextUnit(getResString(R.string.print_bankname,context) + "\t" + bankName,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_cardnumber,context) + "\t" + cardNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.accountNumber,context) + "\t" + accountNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_noref,context) + "\t" + noReff,getResString(R.string.consume,context),TextSize.NORMAL-2,Align.LEFT).setBold(false));
+            template.add(new TextUnit(getResString(R.string.print_balance,context) + "\t" + balance,TextSize.NORMAL,Align.LEFT).setBold(false));
+
+            template.add(new TextUnit(getResString(R.string.print_balancecheck_success,context),TextSize.NORMAL,Align.CEMTER).setBold(false));
+            template.add(new TextUnit("-----------------------------------------------",TextSize.NORMAL-2,Align.CENTER).setBold(false));
             template.add(new TextUnit(getResString(R.string.print_agentcopy,context),TextSize.NORMAL,Align.CENTER).setBold(false));
-            template.add(new ImageUnit(Align.CENTER,bitmap,180,180));
             printAddLineFree(template);
             printerDev.addRuiImage(template.getPrintBitmap(),0);
 
