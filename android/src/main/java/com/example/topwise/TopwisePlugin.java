@@ -170,15 +170,15 @@ public class TopwisePlugin implements FlutterPlugin,
     if (call.method.equals("startFindCard")) {
       Log.d("FlutterPlugin", "startFindCard method called");
 
-      boolean isMag = call.argument("isMag");
-      boolean isIcc = call.argument("isIcc");
-      boolean isRf = call.argument("isRf");
-      int timeout = call.argument("timeout");
+      boolean isMag = true;
+      boolean isIcc = true;
+      boolean isRf = false;
+
+      int timeout = 60 * 1000;
 
       InsertCard.getInstance().startFindCard(isMag, isIcc, isRf, timeout, new InsertCard.onReadCardListener() {
         @Override
         public void getReadState(CardData cardData) {
-          // Log received card data
           Log.d("FlutterPlugin", "Card data received");
 
           Map<String, Object> cardResult = new HashMap<>();
@@ -199,6 +199,7 @@ public class TopwisePlugin implements FlutterPlugin,
       result.success(null);
       return;
     }
+
 
 
     if (call.method.equals("openRFCard")){
