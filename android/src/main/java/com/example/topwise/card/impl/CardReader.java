@@ -248,8 +248,11 @@ public class CardReader implements ICardReader {
                     try {
                         if (icCard.isExist()){
                             byte[] data = icCard.reset(0);
+                            byte[] data_long = icCard.reset(0);
+                            readData(data_long[0]);
+                            Log.d("icCardData", Arrays.toString(data_long));
                             Log.d("icCardData", Arrays.toString(data));
-                            if (data != null && data.length > 0) {
+                            if (data != null && data.length > 0 ) {
                                 AppLog.e(TAG,   "Read Icc SUCC==============");
                                 cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.IC);
                                 setResult(cardData);

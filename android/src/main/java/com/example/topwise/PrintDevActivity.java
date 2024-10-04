@@ -133,7 +133,7 @@ public class PrintDevActivity extends  BaseUtils {
             template.add(new TextUnit("打印数据左边距测试",24,Align.LEFT).setWordWrap(true));
             template.add(new TextUnit("\n\n"));
             printAddLineFree(template);
-            printerDev.addRuiImage(template.getPrintBitmap(),0);
+//            printerDev.addRuiImage(template.getPrintBitmap(),0);
             printRunning = true;
             printerDev.printRuiQueue(mListen);
         } catch (RemoteException e) {
@@ -148,6 +148,9 @@ public class PrintDevActivity extends  BaseUtils {
                 }
             });
         }
+    }
+
+    private void printAddLineFree(PrintTemplate template) {
     }
 
     /**
@@ -1023,10 +1026,4 @@ public class PrintDevActivity extends  BaseUtils {
             });
         }
     }
-//
-//    private void printAddLineFree(PrintTemplate template) {
-//        if(Build.DISPLAY.contains("Z3909")) {
-//            template.add(new TextUnit(""));
-//        }
-//    }
 }

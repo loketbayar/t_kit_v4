@@ -224,6 +224,51 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> printBalanceInformation() async {
+    try {
+      Map<String, dynamic> data = {
+        "orderNo": "1234567890123456541",
+        "balance": "Rp 031000",
+        "merchantName": "Rp 031000",
+        "timestamp": "Rp 031000",
+        "tid": "Rp 031000",
+        "mid": "Rp 031000",
+        "merchantAdress": "Rp 031000",
+        "bankName": "Rp 031000",
+        "cardNumber": "Rp 031000",
+        "accountNumber": "Rp 031000",
+        "noReff": "Rp 031000",
+      };
+
+      var response = await _topwisePlugin.printBalanceInformation(data);
+      log('$response', name: 'printBalanceInformation');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> printBalancePendingInformation() async {
+    try {
+      Map<String, dynamic> data = {
+        "orderNo": "1234567890123456541",
+        "balance": "Rp 3100000",
+        "merchantName": "Agen Karosari",
+        "timestamp": "24 Jul 2024, 12:12",
+        "tid": "1234567894",
+        "mid": "1000001",
+        "merchantAdress": "Jalan Semampir, Semeru, Indonesia",
+        "bankName": "Bank Nobu",
+        "cardNumber": "10202010001",
+        "accountNumber": "230202213131",
+        "noReff": "9393189292",
+      };
+      var response = await _topwisePlugin.printBalancePendingInformation(data);
+      log('$response', name: 'printBalancePendingInformation');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -319,6 +364,11 @@ class _MyAppState extends State<MyApp> {
                   await getHardwareSN();
                 },
                 child: const Text('get Hardware Serial Number')),
+            TextButton(
+                onPressed: () async {
+                  await printBalancePendingInformation();
+                },
+                child: const Text('get print balance templating')),
             TextButton(onPressed: startFindCard, child: const Text('start Find Card')),
           ],
         ),
