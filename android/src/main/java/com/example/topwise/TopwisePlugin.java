@@ -98,8 +98,8 @@ public class TopwisePlugin implements FlutterPlugin,
   private TransData transData;
   public static SysParam sysParam;
 
-  static List<EmvAidParam> aidList;
-  static List<EmvCapkParam> capkList;
+//  static List<EmvAidParam> aidList;
+//  static List<EmvCapkParam> capkList;
 
   private MyHandler myHandler = new MyHandler(this);
 
@@ -212,29 +212,29 @@ public class TopwisePlugin implements FlutterPlugin,
     if (call.method.equals("startFindCard")) {
       Log.d("FlutterPlugin", "startFindCard method called");
 
-      public void onInitCAPK(){
-        List<String> list;
-        CapkParam capkParam = new CapkParam();
-        list = capkParam.init(MyApplication.mApp);
-        capkList =  capkParam.saveEmvCapkParam();
-        AidParam aidParam = new AidParam();
-        list = aidParam.init(MyApplication.mApp);
-        aidList = aidParam.saveEmvAidParam();
-        if (list == null){
-          Log.d("INIT","InitCAPK failed");
-        }
-        Log.d("INIT","InitCAPK Success");
-      }
+//      public void onInitCAPK(){
+//        List<String> list;
+//        CapkParam capkParam = new CapkParam();
+//        list = capkParam.init(MyApplication.mApp);
+//        capkList =  capkParam.saveEmvCapkParam();
+//        AidParam aidParam = new AidParam();
+//        list = aidParam.init(MyApplication.mApp);
+//        aidList = aidParam.saveEmvAidParam();
+//        if (list == null){
+//          Log.d("INIT","InitCAPK failed");
+//        }
+//        Log.d("INIT","InitCAPK Success");
+//      }
+//
+//      onInitCAPK();
 
-      onInitCAPK();
-
-      public static List<EmvCapkParam> getCapkList() {
-        return capkList;
-      }
-
-      public static List<EmvAidParam> getAidList() {
-        return aidList;
-      }
+//      public static List<EmvCapkParam> getCapkList() {
+//        return capkList;
+//      }
+//
+//      public static List<EmvAidParam> getAidList() {
+//        return aidList;
+//      }
 
       boolean isMag = true;
       boolean isIcc = true;
@@ -554,31 +554,31 @@ public class TopwisePlugin implements FlutterPlugin,
     }
   }
 
-  private void gotoEmv(){
-    ActionEmvProcess actionEmvProcess = new ActionEmvProcess(new AAction.ActionStartListener() {
-      @Override
-      public void onStart(AAction action) {
-        ((ActionEmvProcess) action).setParam(TopwisePlugin.this,myHandler,transData);
-
-      }
-    });
-    actionEmvProcess.setEndListener(new AAction.ActionEndListener() {
-      @Override
-      public void onEnd(AAction action, ActionResult result) {
-        if (result.getData() != null){
-          TransData emvTransData = (TransData)result.getData();
-//                    sendShow("DE55: " + emvTransData.getSendIccData());
-          Log.e("DATA DE55", emvTransData.getSendIccData());
-//                    if (!TextUtils.isEmpty(emvTransData.getPan())) {
-//                        sendShow("emv End PAN: " + emvTransData.getPan());
-//                    }
-          if (result.getRet() == 0) {
-            onPrint();
-          }
-        }
-      }
-    });
-    actionEmvProcess.execute();
-  }
+//  private void gotoEmv(){
+//    ActionEmvProcess actionEmvProcess = new ActionEmvProcess(new AAction.ActionStartListener() {
+//      @Override
+//      public void onStart(AAction action) {
+//        ((ActionEmvProcess) action).setParam(TopwisePlugin.this,myHandler,transData);
+//
+//      }
+//    });
+//    actionEmvProcess.setEndListener(new AAction.ActionEndListener() {
+//      @Override
+//      public void onEnd(AAction action, ActionResult result) {
+//        if (result.getData() != null){
+//          TransData emvTransData = (TransData)result.getData();
+////                    sendShow("DE55: " + emvTransData.getSendIccData());
+//          Log.e("DATA DE55", emvTransData.getSendIccData());
+////                    if (!TextUtils.isEmpty(emvTransData.getPan())) {
+////                        sendShow("emv End PAN: " + emvTransData.getPan());
+////                    }
+//          if (result.getRet() == 0) {
+//            onPrint();
+//          }
+//        }
+//      }
+//    });
+//    actionEmvProcess.execute();
+//  }
 
 }
