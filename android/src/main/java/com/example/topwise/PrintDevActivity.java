@@ -552,7 +552,7 @@ public class PrintDevActivity extends  BaseUtils {
         String noReff = dataMap.get("noReff") != null ? dataMap.get("cardNumber").toString() : "10000000001";
 
         int textSize = TextSize.NORMAL;
-        Bitmap bitmap =BitmapFactory.decodeResource(context.getResources(), R.drawable.nobu_bank_mini_bmp);;
+        Bitmap bitmap =BitmapFactory.decodeResource(context.getResources(), R.drawable.nobu_bank_mini_bmp);
         try {
             PrintTemplate template = PrintTemplate.getInstance();
             template.init(context,null);

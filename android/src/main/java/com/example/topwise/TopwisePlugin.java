@@ -10,8 +10,10 @@ import android.os.RemoteException;
 import android.print.PrinterInfo;
 import android.util.Log;
 import android.util.Printer;
-
-
+import android.os.Bundle;
+import android.os.ConditionVariable;
+import android.os.Handler;
+import android.os.Message;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,10 +32,24 @@ import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.data.PrinterConstant;
 
 import com.example.topwise.card.entity.CardData;
-//import com.example.topwise.InsertCard;
 import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.TopUsdkManage;
 import com.example.topwise.card.impl.CardReader;
+import com.example.topwise.card.action.ActionEmvProcess;
+import com.example.topwise.card.action.ActionEnterPin;
+import com.example.topwise.card.action.ActionOnline;
+import com.example.topwise.core.AAction;
+import com.example.topwise.core.ActionResult;
+import com.example.topwise.core.TransContext;
+import com.example.topwise.device.ConfiUtils;
+import com.example.topwise.device.Device;
+import com.example.topwise.entity.TransData;
+
+import com.example.topwise.emv.entity.EmvAidParam;
+import com.example.topwise.emv.entity.EmvCapkParam;
+import com.topwise.toptool.api.convert.IConvert;
+import com.topwise.toptool.api.packer.ITlv;
+import com.topwise.toptool.api.packer.TlvException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +84,12 @@ public class TopwisePlugin implements FlutterPlugin,
   private Context context;
   private Activity activity;
   private final int    REQUEST_CODE1          = 0;
+
+  private TransData transData;
+  public static SysParam sysParam;
+
+  static List<EmvAidParam> aidList;
+  static List<EmvCapkParam> capkList;
 
     private interface OperationOnPermission {
     void op(boolean granted, String permission);
@@ -177,6 +199,30 @@ public class TopwisePlugin implements FlutterPlugin,
     if (call.method.equals("startFindCard")) {
       Log.d("FlutterPlugin", "startFindCard method called");
 
+      public void onInitCAPK(){
+        List<String> list;
+        CapkParam capkParam = new CapkParam();
+        list = capkParam.init(MyApplication.mApp);
+        capkList =  capkParam.saveEmvCapkParam();
+        AidParam aidParam = new AidParam();
+        list = aidParam.init(MyApplication.mApp);
+        aidList = aidParam.saveEmvAidParam();
+        if (list == null){
+          Log.d("INIT","InitCAPK failed");
+        }
+        Log.d("INIT","InitCAPK Success");
+      }
+
+      onInitCAPK();
+
+      public static List<EmvCapkParam> getCapkList() {
+        return capkList;
+      }
+
+      public static List<EmvAidParam> getAidList() {
+        return aidList;
+      }
+
       boolean isMag = true;
       boolean isIcc = true;
       boolean isRf = false;
@@ -196,7 +242,8 @@ public class TopwisePlugin implements FlutterPlugin,
 //            setResult(cardData);
             Log.e("RAW",cardData.toString());
             if (CardData.EReturnType.OK == cardData.geteReturnType()) {
-//              Map<String, Object> cardResult = new HashMap<>();
+              Map<String, Object> cardResult = new HashMap<>();
+                Map<String, Object> cardResult = new HashMap<>();
 //              cardResult.put("returnType", cardData.geteReturnType().toString());
 //              cardResult.put("cardType", cardData.geteCardType().toString());
 //              cardResult.put("track1", cardData.getTrack1());
@@ -204,9 +251,6 @@ public class TopwisePlugin implements FlutterPlugin,
 //              cardResult.put("track3", cardData.getTrack3());
               cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.IC);
               Log.e("data", cardData.toString());
-
-              Log.d("FlutterPlugin", "Card Result: " + cardData.toString());
-              channel.invokeMethod("onCardRead", cardData);
             } else {
               throw new NullPointerException("Data kartu kosong atau tidak valid.");
             }
