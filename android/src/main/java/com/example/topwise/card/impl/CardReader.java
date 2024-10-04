@@ -28,6 +28,7 @@ import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.card.entity.CardData;
 import com.example.topwise.utlis.CardTimer;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -247,6 +248,7 @@ public class CardReader implements ICardReader {
                     try {
                         if (icCard.isExist()){
                             byte[] data = icCard.reset(0);
+                            Log.d("icCardData", Arrays.toString(data));
                             if (data != null && data.length > 0) {
                                 AppLog.e(TAG,   "Read Icc SUCC==============");
                                 cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.IC);

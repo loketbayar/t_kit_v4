@@ -182,9 +182,6 @@ public class TopwisePlugin implements FlutterPlugin,
       boolean isRf = false;
       int timeout = 60 * 1000;
 
-//      AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//      Log.d("icCard? 1", "isCardNull : " + String.valueOf(icCard == null));
-
       ICardReader iCardReader = TopUsdkManage.getInstance().getCardReader();
 //      Log.d("icCard? 2", "icCardNull : " + String.valueOf(iCardReader == null));
 
@@ -196,16 +193,20 @@ public class TopwisePlugin implements FlutterPlugin,
 //          iCardReader.close(false);
 
           try {
+//            setResult(cardData);
+            Log.e("RAW",cardData.toString());
             if (CardData.EReturnType.OK == cardData.geteReturnType()) {
-              Map<String, Object> cardResult = new HashMap<>();
-              cardResult.put("returnType", cardData.geteReturnType().toString());
-              cardResult.put("cardType", cardData.geteCardType().toString());
-              cardResult.put("track1", cardData.getTrack1());
-              cardResult.put("track2", cardData.getTrack2());
-              cardResult.put("track3", cardData.getTrack3());
+//              Map<String, Object> cardResult = new HashMap<>();
+//              cardResult.put("returnType", cardData.geteReturnType().toString());
+//              cardResult.put("cardType", cardData.geteCardType().toString());
+//              cardResult.put("track1", cardData.getTrack1());
+//              cardResult.put("track2", cardData.getTrack2());
+//              cardResult.put("track3", cardData.getTrack3());
+              cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.IC);
+              Log.e("data", cardData.toString());
 
-              Log.d("FlutterPlugin", "Card Result: " + cardResult.toString());
-              channel.invokeMethod("onCardRead", cardResult);
+              Log.d("FlutterPlugin", "Card Result: " + cardData.toString());
+              channel.invokeMethod("onCardRead", cardData);
             } else {
               throw new NullPointerException("Data kartu kosong atau tidak valid.");
             }
