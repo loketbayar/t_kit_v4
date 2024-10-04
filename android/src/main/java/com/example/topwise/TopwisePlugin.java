@@ -38,24 +38,19 @@ import com.example.topwise.card.impl.CardReader;
 //import com.example.topwise.card.action.ActionEmvProcess;
 //import com.example.topwise.card.action.ActionEnterPin;
 //import com.example.topwise.card.action.ActionOnline;
-import com.example.topwise.core.AAction;
-import com.example.topwise.core.ActionResult;
-import com.example.topwise.core.TransContext;
-import com.example.topwise.device.ConfiUtils;
-import com.example.topwise.device.Device;
 
-import com.example.topwise.action.ActionEmvProcess;
-import com.example.topwise.action.ActionEnterPin;
-import com.example.topwise.action.ActionOnline;
-import com.example.topwise.core.AAction;
-import com.example.topwise.core.ActionResult;
-import com.example.topwise.core.TransContext;
-import com.example.topwise.device.ConfiUtils;
-import com.example.topwise.device.Device;
-import com.example.topwise.entity.TransData;
+// import com.example.topwise.action.ActionEmvProcess;
+// import com.example.topwise.action.ActionEnterPin;
+// import com.example.topwise.action.ActionOnline;
+// import com.example.topwise.core.AAction;
+// import com.example.topwise.core.ActionResult;
+// import com.example.topwise.core.TransContext;
+// import com.example.topwise.device.ConfiUtils;
+// import com.example.topwise.device.Device;
+// import com.example.topwise.entity.TransData;
 
-import com.example.topwise.emv.entity.EmvAidParam;
-import com.example.topwise.emv.entity.EmvCapkParam;
+// import com.example.topwise.emv.entity.EmvAidParam;
+// import com.example.topwise.emv.entity.EmvCapkParam;
 import com.topwise.toptool.api.convert.IConvert;
 import com.topwise.toptool.api.packer.ITlv;
 import com.topwise.toptool.api.packer.TlvException;
@@ -94,13 +89,13 @@ public class TopwisePlugin implements FlutterPlugin,
   private Activity activity;
   private final int    REQUEST_CODE1          = 0;
 
-  private TransData transData;
-  public static SysParam sysParam;
+  // private TransData transData;
+  // public static SysParam sysParam;
 
 //  static List<EmvAidParam> aidList;
 //  static List<EmvCapkParam> capkList;
 
-  private MyHandler myHandler = new MyHandler(this);
+  // private MyHandler myHandler = new MyHandler(this);
 
 
   private interface OperationOnPermission {
@@ -255,7 +250,7 @@ public class TopwisePlugin implements FlutterPlugin,
             Log.e("RAW",cardData.toString());
             if (CardData.EReturnType.OK == cardData.geteReturnType()) {
 
-              gotoEmv();
+              // gotoEmv();
               Map<String, Object> cardResult = new HashMap<>();
 //              cardResult.put("returnType", cardData.geteReturnType().toString());
 //              cardResult.put("cardType", cardData.geteCardType().toString());

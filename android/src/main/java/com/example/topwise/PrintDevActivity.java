@@ -46,7 +46,7 @@ public class PrintDevActivity extends  BaseUtils {
 
     private static final String printer= "printer";
 
-//    String data = "";
+    String data = "";
 
 
     public PrintDevActivity(AidlPrinter aidlPrinter, Context context){
