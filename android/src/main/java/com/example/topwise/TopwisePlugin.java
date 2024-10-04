@@ -35,15 +35,14 @@ import com.example.topwise.card.entity.CardData;
 import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.TopUsdkManage;
 import com.example.topwise.card.impl.CardReader;
-import com.example.topwise.card.action.ActionEmvProcess;
-import com.example.topwise.card.action.ActionEnterPin;
-import com.example.topwise.card.action.ActionOnline;
+//import com.example.topwise.card.action.ActionEmvProcess;
+//import com.example.topwise.card.action.ActionEnterPin;
+//import com.example.topwise.card.action.ActionOnline;
 import com.example.topwise.core.AAction;
 import com.example.topwise.core.ActionResult;
 import com.example.topwise.core.TransContext;
 import com.example.topwise.device.ConfiUtils;
 import com.example.topwise.device.Device;
-import com.example.topwise.entity.TransData;
 
 import com.example.topwise.action.ActionEmvProcess;
 import com.example.topwise.action.ActionEnterPin;

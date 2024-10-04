@@ -4,9 +4,9 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.topwise.cloudpos.aidl.emv.level2.EmvCapk;
-import com.topwise.manager.AppLog;
-import com.topwise.manager.emv.entity.EmvAidParam;
-import com.topwise.manager.emv.entity.EmvCapkParam;
+import com.example.topwise.AppLog;
+import com.example.topwise.emv.entity.EmvAidParam;
+import com.example.topwise.emv.entity.EmvCapkParam;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

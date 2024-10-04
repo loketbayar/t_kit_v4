@@ -6,14 +6,14 @@ import android.util.Log;
 
 import com.topwise.cloudpos.struct.BytesUtil;
 import com.topwise.emvtest.MyApplication;
-import com.topwise.manager.AppLog;
+import com.example.topwise.AppLog;
 
-import com.topwise.manager.emv.entity.EmvAidParam;
-import com.topwise.manager.emv.entity.EmvCapkParam;
-import com.topwise.manager.emv.utlis.PayDataUtil;
-import com.topwise.toptool.api.convert.IConvert;
-import com.topwise.toptool.api.packer.ITlv;
-import com.topwise.toptool.api.packer.TlvException;
+import com.example.topwise.emv.entity.EmvAidParam;
+import com.example.topwise.emv.entity.EmvCapkParam;
+import com.example.topwise.emv.utlis.PayDataUtil;
+import com.example.topwise.api.convert.IConvert;
+import com.example.topwise.api.packer.ITlv;
+import com.example.topwise.api.packer.TlvException;
 
 
 import java.util.List;
