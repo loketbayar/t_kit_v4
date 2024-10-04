@@ -560,32 +560,57 @@ public class PrintDevActivity extends  BaseUtils {
             template.add(new ImageUnit(Align.CENTER,bitmap,bitmap.getWidth(),bitmap.getHeight()));
 
             template.add(new TextUnit("\n"));
-
-            template.add(new TextUnit(merchantName,20,Align.CENTER).setBold(false));
-
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(merchantAdress,TextSize.LARGE,Align.CENTER).setBold(true));
+            template.add(new TextUnit(merchantName,24,Align.CENTER).setBold(false));
 
             template.add(new TextUnit("\n"));
-
-            template.add(new TextUnit("TID" + "\t" + tid,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit("MID" + "\t" + mid,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit("Tanggal" + "\t" + timestamp,TextSize.NORMAL,Align.LEFT).setBold(false));
-
             template.add(new TextUnit("\n"));
 
-            template.add(new TextUnit(getResString(R.string.print_bankname,context) + "\t" + bankName,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_cardnumber,context) + "\t" + cardNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_accountnumber,context) + "\t" + accountNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_noreff,context) + "\t" + noReff,TextSize.NORMAL-2,Align.LEFT).setBold(false));
-            template.add(new TextUnit(getResString(R.string.print_balance,context) + "\t" + balance,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit(merchantAdress,24,Align.CENTER).setBold(true));
 
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
+
+            template.add(new TextUnit("INFORMASI SALDO",32,Align.CENTER).setBold(true));
+
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
+
+            template.add(new TextUnit("TID" + "\t" + "\t" + "\t" + "\t" + tid,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("MID" +  "\t" + "\t" + "\t" + "\t"  + mid,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("Tanggal" + "\t" + "\t" + "\t" + "\t"  + timestamp,TextSize.NORMAL,Align.LEFT).setBold(false));
+
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
+
+            template.add(new TextUnit(getResString(R.string.print_bankname,context) +  "\t" + "\t" + "\t" + "\t"  + bankName,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit(getResString(R.string.print_cardnumber,context) +  "\t" + "\t" + "\t" + "\t"  + cardNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit(getResString(R.string.print_accountnumber,context) +  "\t" + "\t" + "\t" + "\t"  + accountNumber,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit(getResString(R.string.print_noreff,context) +  "\t" + "\t" + "\t" + "\t"  + noReff,TextSize.NORMAL-2,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit(getResString(R.string.print_balance,context) +  "\t" + "\t" + "\t" + "\t"  + balance,TextSize.NORMAL,Align.LEFT).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
             template.add(new TextUnit(getResString(R.string.print_balancecheck_success,context),TextSize.NORMAL,Align.CENTER).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit(getResString(R.string.print_balancecheck_success2,context),TextSize.NORMAL,Align.CENTER).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
             template.add(new TextUnit("-----------------------------------------------",TextSize.NORMAL-2,Align.CENTER).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
             template.add(new TextUnit(getResString(R.string.print_agentcopy,context),TextSize.NORMAL,Align.CENTER).setBold(false));
+            template.add(new TextUnit("\n"));
+            template.add(new TextUnit("\n"));
             printAddLineFree(template);
-            printerDev.addRuiImage(template.getPrintBitmap(),0);
 
             String startTime = getCurTime();
             printerDev.printRuiQueue(new AidlPrinterListener.Stub() {
