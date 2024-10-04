@@ -45,6 +45,16 @@ import com.example.topwise.device.ConfiUtils;
 import com.example.topwise.device.Device;
 import com.example.topwise.entity.TransData;
 
+import com.example.topwise.action.ActionEmvProcess;
+import com.example.topwise.action.ActionEnterPin;
+import com.example.topwise.action.ActionOnline;
+import com.example.topwise.core.AAction;
+import com.example.topwise.core.ActionResult;
+import com.example.topwise.core.TransContext;
+import com.example.topwise.device.ConfiUtils;
+import com.example.topwise.device.Device;
+import com.example.topwise.entity.TransData;
+
 import com.example.topwise.emv.entity.EmvAidParam;
 import com.example.topwise.emv.entity.EmvCapkParam;
 import com.topwise.toptool.api.convert.IConvert;
@@ -91,7 +101,10 @@ public class TopwisePlugin implements FlutterPlugin,
   static List<EmvAidParam> aidList;
   static List<EmvCapkParam> capkList;
 
-    private interface OperationOnPermission {
+  private MyHandler myHandler = new MyHandler(this);
+
+
+  private interface OperationOnPermission {
     void op(boolean granted, String permission);
   }
 
@@ -242,8 +255,9 @@ public class TopwisePlugin implements FlutterPlugin,
 //            setResult(cardData);
             Log.e("RAW",cardData.toString());
             if (CardData.EReturnType.OK == cardData.geteReturnType()) {
+
+              gotoEmv();
               Map<String, Object> cardResult = new HashMap<>();
-                Map<String, Object> cardResult = new HashMap<>();
 //              cardResult.put("returnType", cardData.geteReturnType().toString());
 //              cardResult.put("cardType", cardData.geteCardType().toString());
 //              cardResult.put("track1", cardData.getTrack1());
@@ -538,6 +552,33 @@ public class TopwisePlugin implements FlutterPlugin,
       String[] deniedPermissions = permissionTool.getDeniedPermissions(permissionTool.permissions);
         permissionTool.requestNecessaryPermissions(activity, deniedPermissions, REQUEST_CODE1);
     }
+  }
+
+  private void gotoEmv(){
+    ActionEmvProcess actionEmvProcess = new ActionEmvProcess(new AAction.ActionStartListener() {
+      @Override
+      public void onStart(AAction action) {
+        ((ActionEmvProcess) action).setParam(TopwisePlugin.this,myHandler,transData);
+
+      }
+    });
+    actionEmvProcess.setEndListener(new AAction.ActionEndListener() {
+      @Override
+      public void onEnd(AAction action, ActionResult result) {
+        if (result.getData() != null){
+          TransData emvTransData = (TransData)result.getData();
+//                    sendShow("DE55: " + emvTransData.getSendIccData());
+          Log.e("DATA DE55", emvTransData.getSendIccData());
+//                    if (!TextUtils.isEmpty(emvTransData.getPan())) {
+//                        sendShow("emv End PAN: " + emvTransData.getPan());
+//                    }
+          if (result.getRet() == 0) {
+            onPrint();
+          }
+        }
+      }
+    });
+    actionEmvProcess.execute();
   }
 
 }
