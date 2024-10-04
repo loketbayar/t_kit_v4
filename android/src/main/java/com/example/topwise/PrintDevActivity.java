@@ -46,7 +46,7 @@ public class PrintDevActivity extends  BaseUtils {
 
     private static final String printer= "printer";
 
-    String data = "";
+//    String data = "";
 
 
     public PrintDevActivity(AidlPrinter aidlPrinter, Context context){
@@ -1023,10 +1023,10 @@ public class PrintDevActivity extends  BaseUtils {
             });
         }
     }
-
-    private void printAddLineFree(PrintTemplate template) {
-        if(Build.DISPLAY.contains("Z3909")) {
-            template.add(new TextUnit(""));
-        }
-    }
+//
+//    private void printAddLineFree(PrintTemplate template) {
+//        if(Build.DISPLAY.contains("Z3909")) {
+//            template.add(new TextUnit(""));
+//        }
+//    }
 }
