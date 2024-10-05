@@ -5,30 +5,18 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.example.topwise.AppLog;
-//import com.example.topwise.InsertCard;
-import com.example.topwise.DeviceServiceManager;
-import com.example.topwise.TopUsdkManage;
 import com.topwise.cloudpos.aidl.iccard.AidlICCard;
 import com.topwise.cloudpos.aidl.magcard.AidlMagCard;
 import com.topwise.cloudpos.aidl.rfcard.AidlRFCard;
 import com.topwise.cloudpos.aidl.shellmonitor.AidlShellMonitor;
 import com.topwise.cloudpos.aidl.shellmonitor.InstructionSendDataCallback;
 import com.topwise.cloudpos.struct.BytesUtil;
-
-
-import com.example.topwise.card.api.ICardReader;
-import com.example.topwise.card.entity.CardData;
-import com.example.topwise.utlis.CardTimer;
-import com.example.topwise.AppLog;
 import com.example.topwise.TopUsdkManage;
 
-
 import com.example.topwise.card.api.ICardReader;
 import com.example.topwise.card.entity.CardData;
 import com.example.topwise.utlis.CardTimer;
 
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -57,18 +45,10 @@ public class CardReader implements ICardReader {
     private byte mResultCode;
     private byte[] mResultData;
     private boolean bCloseAll;
-//    private AidlMagCard magCard = TopUsdkManage.getInstance().getMag();
-
-    private AidlMagCard magCard = DeviceServiceManager.getInstance().getMagCardReader();
-//    private AidlICCard icCard = TopUsdkManage.getInstance().getIcc();
-
-    private AidlICCard icCard = DeviceServiceManager.getInstance().getICCardReader();
-//    private AidlRFCard rfCard = TopUsdkManage.getInstance().getRf();
-
-    private AidlRFCard rfCard = DeviceServiceManager.getInstance().getRfCardReader();
-//    private AidlShellMonitor aidlShellMonitor = TopUsdkManage.getInstance().getShellMonitor();
-
-    private AidlShellMonitor aidlShellMonitor = DeviceServiceManager.getInstance().getShellMonitor();
+    private AidlMagCard magCard = TopUsdkManage.getInstance().getMag();
+    private AidlICCard icCard = TopUsdkManage.getInstance().getIcc();
+    private AidlRFCard rfCard = TopUsdkManage.getInstance().getRf();
+    private AidlShellMonitor aidlShellMonitor = TopUsdkManage.getInstance().getShellMonitor();
 
     private CardReader() {
     }
@@ -89,7 +69,7 @@ public class CardReader implements ICardReader {
             return magCard.open();
         } catch (RemoteException e) {
             e.printStackTrace();
-            AppLog.e(TAG,   "openMag: false ==============");
+            Log.e(TAG,   "openMag: false ==============");
             return false;
         }
     }
@@ -99,7 +79,7 @@ public class CardReader implements ICardReader {
             return icCard.open();
         } catch (RemoteException e) {
             e.printStackTrace();
-            AppLog.e(TAG,   "openIc: false ==============");
+            Log.e(TAG,   "openIc: false ==============");
             return false;
         }
     }
@@ -108,7 +88,7 @@ public class CardReader implements ICardReader {
             return rfCard.open();
         } catch (RemoteException e) {
             e.printStackTrace();
-            AppLog.e(TAG,   "openRf: false ==============");
+            Log.e(TAG,   "openRf: false ==============");
             return false;
         }
     }
@@ -116,7 +96,7 @@ public class CardReader implements ICardReader {
     @Override
     public void startFindCard(boolean isMag, boolean isIcc, boolean isRf, int outtime,
                               onReadCardListener onReadCardListener) {
-        AppLog.e(TAG,   "startFindCard: isMag= "+isMag + " isIcc="+isIcc + " isRf=" + isRf + " outtime=" +outtime);
+        Log.e(TAG,   "startFindCard: isMag= "+isMag + " isIcc="+isIcc + " isRf=" + isRf + " outtime=" +outtime);
         this.isMag = isMag;
         this.isIcc = isIcc;
         this.isRf  = isRf;
@@ -131,7 +111,7 @@ public class CardReader implements ICardReader {
         cardTimer.setTimeCountListener(new CardTimer.TickTimerListener() {
             @Override
             public void onFinish() {
-                AppLog.e(TAG,   "CardTimer: onFinish ============== ");
+                Log.e(TAG,   "CardTimer: onFinish ============== ");
                 if (bCloseAll)  closeDevice(false,false,false,true);
                 setResult(new CardData(CardData.EReturnType.OTHER_ERR));
                 return;
@@ -139,8 +119,8 @@ public class CardReader implements ICardReader {
 
             @Override
             public void onTick(long leftTime) {
-                if (findCardThread != null) AppLog.e(TAG,   "FindCardThread ID onTick ==============" +findCardThread.getId() + "  isInterrupted " + findCardThread.isInterrupted());
-                AppLog.e(TAG,   "CardTimer: onTick ============== " +leftTime);
+                if (findCardThread != null) Log.e(TAG,   "FindCardThread ID onTick ==============" +findCardThread.getId() + "  isInterrupted " + findCardThread.isInterrupted());
+                Log.e(TAG,   "CardTimer: onTick ============== " +leftTime);
                 if (leftTime == 1) bCloseAll = true;
             }
         });
@@ -149,7 +129,7 @@ public class CardReader implements ICardReader {
         isRunging = true;
         findCardThread = new FindCardThread();
         findCardThread.start();
-        AppLog.e(TAG,   "FindCardThread ID ==============" +findCardThread.getId());
+        Log.e(TAG,   "FindCardThread ID ==============" +findCardThread.getId());
     }
 
     class FindCardThread extends Thread{
@@ -159,7 +139,6 @@ public class CardReader implements ICardReader {
             if (isMag && !openMag()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_MAG_ERR));
-//                    Log.e("ERROR", "IC CARD SUDAH OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }
@@ -167,7 +146,6 @@ public class CardReader implements ICardReader {
             if (isIcc && !openIc()){
                 if (onReadCardListener != null){
                     setResult(new CardData(CardData.EReturnType.OPEN_IC_ERR));
-//                    Log.e("ERROR", "IC CARD BELUM OPEN");
                     closeDevice(false,false,false,true);
                     return;
                 }
@@ -193,7 +171,7 @@ public class CardReader implements ICardReader {
                             byte[] thirdTlvArray = readData((byte)MSR_TRACK_3);
                             if (firstTlvArray == null && secondTlvArray == null &&
                                     thirdTlvArray == null ){
-                                AppLog.e(TAG,   "Read mag Exception ==============" );
+                                Log.e(TAG,   "Read mag Exception ==============" );
                                 cardData = new CardData(CardData.EReturnType.OPEN_MAG_RESET_ERR);
                                 setResult(cardData);
                                 closeDevice(false,false,false,true);
@@ -201,7 +179,7 @@ public class CardReader implements ICardReader {
                             }
                             cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.MAG);
                             if (firstTlvArray != null){
-                                AppLog.e(TAG,   "Read mag firstTlvArray ==============" + new String(firstTlvArray));
+                                Log.e(TAG,   "Read mag firstTlvArray ==============" + new String(firstTlvArray));
                                 int realFirstLen = firstTlvArray.length - 2;
                                 if (realFirstLen > 0) {
                                     byte[] realFirstByte = new byte[realFirstLen];
@@ -210,7 +188,7 @@ public class CardReader implements ICardReader {
                                 }
                             }
                             if (secondTlvArray != null){
-                                AppLog.e(TAG,   "Read mag secondTlvArray ==============" + new String(secondTlvArray));
+                                Log.e(TAG,   "Read mag secondTlvArray ==============" + new String(secondTlvArray));
                                 int realSecondLen = secondTlvArray.length - 2;
                                 if (realSecondLen > 0) {
                                     byte[] realSecondByte = new byte[realSecondLen];
@@ -220,7 +198,7 @@ public class CardReader implements ICardReader {
 
                             }
                             if (thirdTlvArray != null){
-                                AppLog.e(TAG,   "Read mag thirdTlvArray ==============" + new String(thirdTlvArray));
+                                Log.e(TAG,   "Read mag thirdTlvArray ==============" + new String(thirdTlvArray));
                                 int realThirdLen = thirdTlvArray.length - 2;
                                 if (realThirdLen > 0) {
                                     byte[] realThirdByte = new byte[realThirdLen];
@@ -236,7 +214,7 @@ public class CardReader implements ICardReader {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        AppLog.e(TAG,   "Read mag Exception ==============" + e.getMessage());
+                        Log.e(TAG,   "Read mag Exception ==============" + e.getMessage());
                         cardData = new CardData(CardData.EReturnType.OPEN_MAG_RESET_ERR);
                         setResult(cardData);
                         closeDevice(false,false,false,true);
@@ -248,18 +226,14 @@ public class CardReader implements ICardReader {
                     try {
                         if (icCard.isExist()){
                             byte[] data = icCard.reset(0);
-                            byte[] data_long = icCard.reset(0);
-                            readData(data_long[0]);
-                            Log.d("icCardData", Arrays.toString(data_long));
-                            Log.d("icCardData", Arrays.toString(data));
-                            if (data != null && data.length > 0 ) {
-                                AppLog.e(TAG,   "Read Icc SUCC==============");
+                            if (data != null && data.length > 0) {
+                                Log.e(TAG,   "Read Icc SUCC==============");
                                 cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.IC);
                                 setResult(cardData);
                                 closeDevice(true,false,false,false);
                                 return;
                             }else {
-                                AppLog.e(TAG,   "Read Icc reset fail ==============");
+                                Log.e(TAG,   "Read Icc reset fail ==============");
                                 cardData =  new CardData(CardData.EReturnType.OPEN_IC_RESET_ERR);
                                 setResult(cardData);
                                 closeDevice(false,false,false,true);
@@ -268,7 +242,7 @@ public class CardReader implements ICardReader {
                         }
                     } catch (RemoteException e) {
                         e.printStackTrace();
-                        AppLog.e(TAG,   "Read Icc Exception ==============" + e.getMessage());
+                        Log.e(TAG,   "Read Icc Exception ==============" + e.getMessage());
                         cardData = new CardData(CardData.EReturnType.OPEN_IC_RESET_ERR);
                         setResult(cardData);
                         closeDevice(false,false,false,true);
@@ -281,13 +255,13 @@ public class CardReader implements ICardReader {
                         if (rfCard.isExist()){
                             byte[] data = rfCard.reset(0);
                             if (data != null && data.length > 0) {
-                                AppLog.e(TAG,   "Read Rf SUCC ==============");
+                                Log.e(TAG,   "Read Rf SUCC ==============");
                                 cardData = new CardData(CardData.EReturnType.OK, CardData.ECardType.RF);
                                 setResult(cardData);
                                 closeDevice(false,true,false,false);
                                 return;
                             }else {
-                                AppLog.e(TAG,   "Read Rf reset fail ==============");
+                                Log.e(TAG,   "Read Rf reset fail ==============");
                                 cardData = new CardData(CardData.EReturnType.OPEN_RF_RESET_ERR);
                                 setResult(cardData);
                                 closeDevice(false,false,false,true);
@@ -296,7 +270,7 @@ public class CardReader implements ICardReader {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        AppLog.e(TAG,   "Read Rf Exception ==============" + e.getMessage());
+                        Log.e(TAG,   "Read Rf Exception ==============" + e.getMessage());
                         cardData = new CardData(CardData.EReturnType.OPEN_RF_RESET_ERR);
                         setResult(cardData);
                         closeDevice(false,false,false,true);
@@ -314,7 +288,7 @@ public class CardReader implements ICardReader {
      * @throws Exception
      */
     private byte readMag() throws Exception {
-        AppLog.e(TAG,   "Read readMag ==============" );
+        Log.e(TAG,   "Read readMag ==============" );
         byte[] mBuff = new byte[]{(byte) 0x0b, (byte) 0xb8};
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         aidlShellMonitor.sendIns(6, (byte)0x68, (byte)0x04, (byte) 0x02, mBuff, new InstructionSendDataCallback.Stub() {
@@ -327,7 +301,7 @@ public class CardReader implements ICardReader {
             }
         });
         if (countDownLatch != null) countDownLatch.await();
-        AppLog.e(TAG,   "Read readMag resultCode ============== "  + mResultCode);
+        Log.e(TAG,   "Read readMag resultCode ============== "  + mResultCode);
         return mResultCode;
     }
 
@@ -338,7 +312,7 @@ public class CardReader implements ICardReader {
      * @throws Exception
      */
     private byte [] readData(byte inByte) throws Exception{
-        AppLog.e(TAG,   "Read readData ==============" );
+        Log.e(TAG,   "Read readData ==============" );
         byte[] mBuff = new byte[1];
         mBuff[0] = inByte;
         final CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -351,24 +325,24 @@ public class CardReader implements ICardReader {
             }
         });
         if (countDownLatch != null) countDownLatch.await();
-        AppLog.e(TAG,   "Read readData resultCode ============== "  + mResultCode);
+        Log.e(TAG,   "Read readData resultCode ============== "  + mResultCode);
         return mResultCode == (byte) 0x00 ? mResultData : null;
     }
 
     @Override
     public void close(boolean closeDevice) {
-        AppLog.e(TAG,   "close ==== " + closeDevice);
+        Log.e(TAG,   "close ==== " + closeDevice);
         if (closeDevice)
             closeDevice(false,false,false,true);
 
         if (cardTimer != null){
             cardTimer.cancel();
-            AppLog.e(TAG,   "close  cardTimer.cancel ==== ");
+            Log.e(TAG,   "close  cardTimer.cancel ==== ");
             cardTimer = null;
         }
         if (findCardThread != null && !findCardThread.isInterrupted()){
             findCardThread.interrupt();
-            AppLog.e(TAG,   "close   findCardThread.interrupt ==== ");
+            Log.e(TAG,   "close   findCardThread.interrupt ==== ");
             findCardThread = null;
         }
         isRunging = false;
@@ -378,19 +352,19 @@ public class CardReader implements ICardReader {
         isRunging = false;
         if (cardTimer != null){
             cardTimer.cancel();
-            AppLog.e(TAG,   "setResult  cardTimer.cancel ==== ");
+            Log.e(TAG,   "setResult  cardTimer.cancel ==== ");
             cardTimer = null;
         }
         if (findCardThread != null && !findCardThread.isInterrupted()){
             findCardThread.interrupt();
-            AppLog.e(TAG,   "setResult   findCardThread.interrupt ==== ");
+            Log.e(TAG,   "setResult   findCardThread.interrupt ==== ");
             findCardThread = null;
         }
         onReadCardListener.getReadState(cardData);
     }
     private void closeDevice(boolean isICC,boolean isRF,boolean isMAG,boolean all) {
-        AppLog.e(TAG,   "closeDevice in== isMag=" +isMag + " isIcc="+isIcc+" isRf=" + isRf);
-        AppLog.e(TAG,   "closeDevice in== isMAG=" +isMAG + " isICC="+isICC+" isRF=" + isRF + " ALL=" + all);
+        Log.e(TAG,   "closeDevice in== isMag=" +isMag + " isIcc="+isIcc+" isRf=" + isRf);
+        Log.e(TAG,   "closeDevice in== isMAG=" +isMAG + " isICC="+isICC+" isRF=" + isRF + " ALL=" + all);
         try {
             if (isMag && isMAG){
                 if (isMag && magCard != null) magCard.close();

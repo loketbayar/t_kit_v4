@@ -1,6 +1,7 @@
 package com.example.topwise.emv.impl;
 
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.example.topwise.AppLog;
 import com.example.topwise.TopUsdkManage;
@@ -141,6 +142,7 @@ public class TransProcess implements IEmv {
             if (init != EmvResult.OK){
                 return init;
             }
+            Log.d("TopWiseLog contactEmvProcess.getInstance()", "Start");
             return ContactEmvProcess.getInstance(instance).emvProcess(emvTransData);
         }else {
             EmvResult init = ContactLessProcess.getInstance(instance).init();
@@ -148,6 +150,7 @@ public class TransProcess implements IEmv {
             if (init != EmvResult.OK){
                 return init;
             }
+            Log.d("TopWiseLog contactLessEmvProcess.getInstance()", "Start");
             return ContactLessProcess.getInstance(instance).emvProcess(emvTransData);
         }
     }
